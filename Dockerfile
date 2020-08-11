@@ -10,6 +10,8 @@ COPY ./tests /tests
 
 COPY *.py /
 
-RUN ln -s /api.py /bin/enricher-api
+RUN chmod +x /api.py
 
-CMD ["enricher-api"]
+RUN ln -s /api.py /enricher-api
+
+CMD ["/enricher-api"]
