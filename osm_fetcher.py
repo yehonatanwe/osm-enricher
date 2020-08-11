@@ -20,7 +20,11 @@ def get_nodes(bounding_box):
     url = osm_fetcher_consts.BASE_URL.format(
         ','.join([str(x) for x in bounding_box]))
     logger.debug(f'OSM request: {url}')
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except requests.exceptions.ConnectionError as e:
+        logger.error(e)
+        raise Exception(osm_fetcher_exceptions.FAILED_CONNECTION_ERROR)
 
     if response.status_code != 200:
         logger.error(
