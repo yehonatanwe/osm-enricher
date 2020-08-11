@@ -2,3 +2,4 @@
 *.log
 *.idea
 enricher-cache.json
+*.pytest_cache

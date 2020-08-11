@@ -9,6 +9,12 @@ from xmljson import XMLData
 logger = getLogger(common_consts.LOGGER)
 
 
+def validate_osm_nodes(data):
+    return (
+        not data or not isinstance(data, dict) or not data.get('osm') or
+        not data['osm'].get('way') or not isinstance(data['osm']['way'], list))
+
+
 def get_nodes(bounding_box):
     logger.info('Getting OSM nodes')
     url = osm_fetcher_consts.BASE_URL.format(
@@ -19,7 +25,8 @@ def get_nodes(bounding_box):
     if response.status_code != 200:
         logger.error(
             f'Got status code: {response.status_code} from osm request')
-        return []
+        raise Exception(osm_fetcher_exceptions.FAILED_RETRIEVE_ERROR.format(
+            response.status_code))
 
     bf = XMLData(dict_type=dict)
     return bf.data(fromstring(response.content))
@@ -43,4 +50,7 @@ def fetch_osm_data(Latitude, Longitude, **_):
         raise Exception(osm_fetcher_exceptions.MISSING_FIELDS_ERROR)
     bb = locations_to_bounding_box(Latitude, Longitude)
     nodes = get_nodes(bb)
+    if validate_osm_nodes(nodes):
+        logger.error('Unexpected OSM nodes structure')
+        raise Exception(osm_fetcher_exceptions.BAD_NODE_STRUCTURE_ERROR)
     return nodes

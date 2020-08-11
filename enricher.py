@@ -6,7 +6,6 @@ from multiprocessing.dummy import Pool as ThreadPool
 from osm_fetcher import fetch_osm_data
 from finder import find_enrichment
 
-
 logger = getLogger(common_consts.LOGGER)
 cache = Cacher()
 
@@ -37,7 +36,7 @@ def enrich_entry(entry):
         logger.debug('Fetching OSM data')
         osm_data = fetch_osm_data(**entry)
         logger.debug('Finding enrichment')
-        enrichment = find_enrichment(osm_data)
+        enrichment = find_enrichment(osm_data['osm']['way'])
         logger.debug('Updating cache')
         cache.update_cache({key: enrichment})
     return key, enrichment

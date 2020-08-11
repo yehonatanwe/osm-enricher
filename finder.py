@@ -12,9 +12,9 @@ def contains_school_tag(k, v):
 def find_enrichment(data):
     logger.debug('Finding enrichment')
     enrichment = 0
-    for n in data['osm'].get('way', []):
-        if 'tag' in n:
-            tags = n['tag']
+    for entry in data:
+        if 'tag' in entry:
+            tags = entry['tag']
             if isinstance(tags, list):
                 for t in tags:
                     if contains_school_tag(**t):
