@@ -67,7 +67,8 @@ def parse_arguments():
                         help='Enable Flask debug mode')
     parser.add_argument('-e', '--env', default='development', dest='env',
                         help='Environment type')
-    parser.add_argument('-o', '--host', dest='host', help='Server host')
+    parser.add_argument('-o', '--host', default='0.0.0.0', dest='host',
+                        help='Server host')
     parser.add_argument('-p', '--port', dest='port', help='Server port')
     return vars(parser.parse_args())
 
