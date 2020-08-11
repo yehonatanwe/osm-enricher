@@ -10,6 +10,6 @@ COPY ./tests /tests
 
 COPY *.py /
 
-RUN ln -s /api.py /enricher-api
+RUN ln -s /api.py /bin/enricher-api
 
-CMD ["/enricher-api"]
+CMD ["enricher-api"]
