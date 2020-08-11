@@ -1,4 +1,3 @@
-from copy import deepcopy
 from enricher import enrich_data
 
 
@@ -18,6 +17,6 @@ DATA = [{
 }]
 
 
-def test_enrich_data():
+def test_valid_enrich_data():
     enrich_data(DATA)
     assert 'School Count' in DATA[0]

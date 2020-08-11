@@ -80,6 +80,4 @@ def main():
 
 
 if __name__ == '__main__':
-    with open(common_consts.LOGFILE, 'w') as f:
-        f.write('')
     main()
