@@ -21,7 +21,7 @@ DATA = [{
 
 def test_enrich_preset_valid_data():
     enrich_data(DATA)
-    assert DATA[0]['SchoolCount'] is 5
+    assert DATA[0]['SchoolCount'] == 5
 
 
 def test_enrich_invalid_data():
