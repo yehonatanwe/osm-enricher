@@ -1,3 +1,4 @@
+import json
 import requests
 from consts import common_consts, osm_fetcher_consts
 from exceptions import osm_fetcher_exceptions
@@ -10,9 +11,11 @@ logger = getLogger(common_consts.LOGGER)
 
 
 def validate_osm_nodes(data):
-    return (
-        not data or not isinstance(data, dict) or not data.get('osm') or
-        not data['osm'].get('way') or not isinstance(data['osm']['way'], list))
+    invalid = not data or not isinstance(data, dict) or not data.get('osm')
+    if invalid:
+        return invalid
+    if data['osm'].get('way'):
+        return not isinstance(data['osm']['way'], list)
 
 
 def get_nodes(bounding_box):
@@ -55,6 +58,6 @@ def fetch_osm_data(Latitude, Longitude, **_):
     bb = locations_to_bounding_box(Latitude, Longitude)
     nodes = get_nodes(bb)
     if validate_osm_nodes(nodes):
-        logger.error('Unexpected OSM nodes structure')
+        logger.error(f'Unexpected OSM nodes structure:\n{json.dumps(nodes)}')
         raise Exception(osm_fetcher_exceptions.BAD_NODE_STRUCTURE_ERROR)
     return nodes

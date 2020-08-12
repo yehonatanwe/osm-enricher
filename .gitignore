@@ -3,6 +3,5 @@
 *.idea
 enricher-cache.json
 *.pytest_cache
-*coverage.xml
+*coverage*
 *report.xml
-*.coverage

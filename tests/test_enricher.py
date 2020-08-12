@@ -1,4 +1,6 @@
 from enricher import enrich_data
+from exceptions import enricher_exceptions
+from random import uniform
 
 
 DATA = [{
@@ -11,12 +13,28 @@ DATA = [{
     "Car": 1,
     "Landsize": 292,
     "YearBuilt": 1900,
-    "Latitude": -47.797,
-    "Longitude": 43.9051,
+    "Latitude": -37.797,
+    "Longitude": 144.9051,
     "Address": "9 Lynch St 3011, Melbourne, Australia"
 }]
 
 
-def test_valid_enrich_data():
+def test_enrich_preset_valid_data():
+    enrich_data(DATA)
+    assert DATA[0]['SchoolCount'] is 5
+
+
+def test_enrich_invalid_data():
+    DATA[0].pop('Latitude')
+    try:
+        enrich_data(DATA)
+        assert False
+    except Exception as e:
+        assert enricher_exceptions.MISSING_DATA_ERROR in str(e)
+
+
+def test_enrich_random_valid_data():
+    DATA[0]['Latitude'] = uniform(-90, 90)
+    DATA[0]['Longitude'] = uniform(-180, 180)
     enrich_data(DATA)
     assert 'SchoolCount' in DATA[0]

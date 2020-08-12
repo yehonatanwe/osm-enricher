@@ -36,7 +36,7 @@ def enrich_entry(entry):
         logger.debug('Fetching OSM data')
         osm_data = fetch_osm_data(**entry)
         logger.debug('Finding enrichment')
-        enrichment = find_enrichment(osm_data['osm']['way'])
+        enrichment = find_enrichment(osm_data['osm'].get('way', []))
         logger.debug('Updating cache')
         cache.update_cache({key: enrichment})
     return key, enrichment
