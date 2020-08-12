@@ -7,7 +7,6 @@ from osm_fetcher import fetch_osm_data
 from finder import find_enrichment
 
 logger = getLogger(common_consts.LOGGER)
-cache = Cacher()
 
 
 def get_enrichment_key(Latitude, Longitude, **_):
@@ -29,7 +28,8 @@ def enrich_entry(entry):
         logger.error('Entry is missing required fields')
         raise Exception(enricher_exceptions.MISSING_DATA_ERROR)
     key = get_enrichment_key(**entry)
-    enrichment = cache.search_cache(key)
+    with Cacher() as c:
+        enrichment = c.search_cache(key)
     if enrichment is not None:
         logger.info('Enrichment found in cache')
     else:
@@ -38,7 +38,8 @@ def enrich_entry(entry):
         logger.debug('Finding enrichment')
         enrichment = find_enrichment(osm_data['osm'].get('way', []))
         logger.debug('Updating cache')
-        cache.update_cache({key: enrichment})
+        with Cacher() as c:
+            c.update_cache({key: enrichment})
     return key, enrichment
 
 

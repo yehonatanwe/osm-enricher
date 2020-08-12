@@ -2,14 +2,14 @@
 
 
 import argparse
+import json
 import requests
 
 
-DATA = {"data": [
-    {"Suburb": "Footscray", "Rooms": 3, "Date": "2016-03-12", "Postcode": 3011,
-     "Bedroom2": 3, "Bathroom": 1, "Car": 1, "Landsize": 292,
-     "YearBuilt": 1900, "Latitude": -37.797, "Longitude": 144.9051,
-     "Address": "9 LynchSt 3011, Melbourne, Australia"}]}
+DATA = ('{"data": [{"Suburb": "Footscray", "Rooms": 3, "Date": "2016-03-12", '
+        '"Postcode": 3011,"Bedroom2": 3, "Bathroom": 1, "Car": 1, "Landsize": '
+        '292,"YearBuilt": 1900, "Latitude": -37.797, "Longitude": 144.9051, '
+        '"Address": "9 LynchSt 3011, Melbourne, Australia"}]}')
 
 
 def parse_arguments():
@@ -23,7 +23,7 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     response = requests.post(url='http://{host}:{port}/api/enrich'.format(
-        **args), json=args['data'])
+        **args), json=json.loads(args['data']))
     print(response.content.decode('utf-8'))
 
 

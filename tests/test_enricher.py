@@ -24,6 +24,22 @@ def test_enrich_preset_valid_data():
     assert DATA[0]['SchoolCount'] == 5
 
 
+def test_enrich_cache():
+    enrich_data(DATA)
+    first = DATA[0]['SchoolCount']
+    enrich_data(DATA)
+    second = DATA[0]['SchoolCount']
+    assert first == second
+
+
+def test_enrich_empty_data():
+    try:
+        enrich_data({})
+        assert False
+    except Exception as e:
+        assert enricher_exceptions.MISSING_DATA_ERROR in str(e)
+
+
 def test_enrich_invalid_data():
     DATA[0].pop('Latitude')
     try:

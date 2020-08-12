@@ -14,9 +14,9 @@ class Cacher:
         self.load_cache()
 
     def __enter__(self):
-        self.load_cache()
+        return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         self.store_cache()
 
     def load_cache(self):
