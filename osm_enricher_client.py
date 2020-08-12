@@ -9,7 +9,7 @@ DATA = {"data": [
     {"Suburb": "Footscray", "Rooms": 3, "Date": "2016-03-12", "Postcode": 3011,
      "Bedroom2": 3, "Bathroom": 1, "Car": 1, "Landsize": 292,
      "YearBuilt": 1900, "Latitude": -37.797, "Longitude": 144.9051,
-     "Address": "9LynchSt3011,Melbourne,Australia"}]}
+     "Address": "9 LynchSt 3011, Melbourne, Australia"}]}
 
 
 def parse_arguments():
