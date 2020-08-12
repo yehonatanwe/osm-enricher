@@ -19,4 +19,4 @@ DATA = [{
 
 def test_valid_enrich_data():
     enrich_data(DATA)
-    assert 'School Count' in DATA[0]
+    assert 'SchoolCount' in DATA[0]

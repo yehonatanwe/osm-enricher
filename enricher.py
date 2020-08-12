@@ -16,7 +16,7 @@ def get_enrichment_key(Latitude, Longitude, **_):
 
 def update_data(data, enrichment):
     for e in data:
-        e['School Count'] = enrichment[get_enrichment_key(**e)]
+        e['SchoolCount'] = enrichment[get_enrichment_key(**e)]
 
 
 def validate_fields(item):

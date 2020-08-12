@@ -4,6 +4,7 @@
 import argparse
 import requests
 
+
 DATA = {"data": [
     {"Suburb": "Footscray", "Rooms": 3, "Date": "2016-03-12", "Postcode": 3011,
      "Bedroom2": 3, "Bathroom": 1, "Car": 1, "Landsize": 292,
