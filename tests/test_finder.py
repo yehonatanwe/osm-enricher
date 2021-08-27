@@ -1,5 +1,5 @@
-from exceptions import finder_exceptions
-from finder import find_enrichment
+from osm_enricher.exceptions import finder_exceptions
+from osm_enricher.finder import find_enrichment
 
 
 DATA = [{'tag': [{'k': 'amenity', 'v': 'school'},

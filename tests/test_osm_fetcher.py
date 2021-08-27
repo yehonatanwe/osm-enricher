@@ -1,5 +1,5 @@
-from osm_fetcher import fetch_osm_data
-from exceptions import osm_fetcher_exceptions
+from osm_enricher.osm_fetcher import fetch_osm_data
+from osm_enricher.exceptions import osm_fetcher_exceptions
 
 
 def test_fetch_osm_valid_data():

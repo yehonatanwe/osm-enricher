@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "osm-enricher"
+version = "0.1.0"
+description = "osm enricher"
+authors = ["Vinny <yehonatanwe@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.26.0"
+lxml = "^4.6.3"
+xmljson = "^0.2.1"
+Flask = "^2.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

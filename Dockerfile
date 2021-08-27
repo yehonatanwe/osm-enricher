@@ -1,17 +1,27 @@
-FROM python
+FROM python:3.8-slim as base
 
-RUN pip3 install coverage flask lxml pytest pytest-cov requests xmljson
+RUN apt update && apt -y upgrade
 
-COPY ./consts /consts
+RUN pip install --upgrade pip wheel setuptools packaging poetry virtualenv
+RUN poetry config virtualenvs.in-project true
 
-COPY ./exceptions /exceptions
+RUN mkdir -p /workspace
+WORKDIR /workspace
+COPY ./osm_enricher /workspace/osm_enricher
+COPY ./tests /workspace/tests
+COPY ./poetry.lock /workspace/poetry.lock
+COPY ./pyproject.toml /workspace/pyproject.toml
+COPY ./osm_enricher_client.py /workspace/osm_enricher_client.py
 
-COPY ./tests /tests
+RUN poetry install
 
-COPY *.py /
 
-RUN chmod +x /api.py
+FROM python:3.8-slim
 
-RUN ln -s /api.py /enricher-api
+RUN apt update && apt -y upgrade
 
-CMD ["/enricher-api"]
+COPY --from=base /workspace /workspace
+WORKDIR /workspace
+ENV PYTHONPATH=/workspace/:/workspace/.venv/lib/python3.8/site-packages/
+
+ENTRYPOINT ["python", "./osm_enricher/web_app.py"]

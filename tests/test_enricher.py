@@ -1,5 +1,5 @@
-from enricher import enrich_data
-from exceptions import enricher_exceptions
+from osm_enricher.enricher import enrich_data
+from osm_enricher.exceptions import enricher_exceptions
 from random import uniform
 
 
