@@ -6,13 +6,19 @@ authors = ["Vinny <yehonatanwe@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-requests = "^2.26.0"
-lxml = "^4.6.3"
-xmljson = "^0.2.1"
 Flask = "^2.0.1"
+lxml = "^4.6.3"
+requests = "^2.26.0"
+xmljson = "^0.2.1"
 
 [tool.poetry.dev-dependencies]
+mock = "^4.0.3"
 pytest = "^6.2.4"
+pytest-cov = "^2.12.1"
+
+[tool.pytest.ini]
+norecursedirs = ['.venv']
+omit = ['.venv']
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

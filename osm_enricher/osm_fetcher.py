@@ -6,12 +6,14 @@ import requests
 from lxml.etree import fromstring
 from xmljson import XMLData
 
-logger: logging.Logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(name=__name__)
 BASE_URL: str = 'http://www.overpass-api.de/api/xapi?*[amenity=*][bbox={}]'
 
 
 def validate_osm_nodes(data: dict) -> None:
-    assert data and isinstance(data, dict) and data.get('osm', {}).get('way'), 'Unexpected OSM nodes structure'
+    assert data, 'Nodes data is empty'
+    assert isinstance(data, dict), 'Unexpected OSM nodes structure'
+    assert data.get('osm'), 'Unexpected OSM nodes structure'
 
 
 def get_nodes(bounding_box: List[float]) -> dict:
@@ -33,7 +35,6 @@ def get_nodes(bounding_box: List[float]) -> dict:
 
     bf = XMLData(dict_type=dict)
     return bf.data(fromstring(response.content))
-    # return response.json()
 
 
 def locations_to_bounding_box(latitude: float, longitude: float, padding: float = 0.01) -> List[float]:

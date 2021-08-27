@@ -5,7 +5,7 @@ from typing import List, Tuple
 
 from osm_enricher.osm_fetcher import fetch_osm_data
 
-logger: logging.Logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(name=__name__)
 
 
 def get_enrichment_key(latitude: float, longitude: float) -> str:

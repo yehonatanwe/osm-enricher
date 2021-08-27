@@ -7,11 +7,10 @@ from flask import Flask, jsonify, request
 
 from osm_enricher.enricher import enrich_data
 
-# LOGGER_FORMAT = '%(asctime)s %(levelname)-5s %(threadName)s %(funcName)s (%(lineno)d): %(message)s'
 logging.basicConfig(level=logging.INFO)
-logger: logging.Logger = logging.getLogger(__name__)
+logger: logging.Logger = logging.getLogger(name=__name__)
 
-app: Flask = Flask(__name__)
+app: Flask = Flask(import_name=__name__)
 
 
 def validate_request(data: dict) -> None:
